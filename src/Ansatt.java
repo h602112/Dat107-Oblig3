@@ -1,19 +1,28 @@
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(schema = "oblig3")
 @NamedQuery(name = "hentAlleAnsatte", query ="select a From Ansatt as a order by a.brukernavn")
 public class Ansatt {
-    @Id private String brukernavn;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int ansattID;
+    private String brukernavn;
     private String fornavn;
     private String etternavn;
     private Date ansettelsedato;
     private String stilling;
     private int maanedslonn;
+
+    @OneToMany(mappedBy = "ansatt", fetch = FetchType.EAGER)
+    List<Prosjekt> prosjekter;
+
+    @OneToMany(mappedBy = "ansatt", fetch = FetchType.EAGER)
+    List<Avdeling> avdelinger;
+
+
 
 
 
