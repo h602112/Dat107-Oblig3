@@ -1,7 +1,4 @@
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 import java.util.List;
 
 public class AnsattDAO {
@@ -11,16 +8,94 @@ public class AnsattDAO {
 
 
 
-    public Ansatt finnAnsattMedPk(String brukernavn) {
+
+    public void createAnsatt(Ansatt a) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+
+        try {
+            tx.begin();
+            em.persist(a);
+            tx.commit();
+        } catch (Throwable e) {
+            e.printStackTrace();
+            tx.rollback();
+        } finally {
+            em.close();
+        }
+
+    }
+
+
+    public Ansatt finnAnsattMedId(int id) {
 
         EntityManager em = emf.createEntityManager();
 
         try {
-            return em.find(Ansatt.class, brukernavn);
+            return em.find(Ansatt.class, id);
         } finally {
             em.close();
         }
     }
+    public Ansatt finnAnsattMedBrukerNavn(String brukerNavn) {
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            return em.find(Ansatt.class, brukerNavn);
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<Ansatt> hentAlleAnsatte() {
+
+        EntityManager em = emf.createEntityManager();
+
+        List<Ansatt> ansatte = null;
+        try {
+            TypedQuery<Ansatt> query = em.createNamedQuery("hentAlleAnsatte", Ansatt.class);
+            ansatte = query.getResultList();
+        } finally {
+            em.close();
+        }
+        return ansatte;
+    }
+
+    public void updateAnsattLonn(int id, int nyLonn) {
+
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            em.getTransaction().begin();
+
+            Ansatt a = em.find(Ansatt.class, id);
+            a.setMaanedslonn(nyLonn);
+
+            em.getTransaction().commit();
+        } catch (Throwable e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+    }
+    public void updateAnsattStilling(int id, String nyStilling) {
+
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            em.getTransaction().begin();
+
+            Ansatt a = em.find(Ansatt.class, id);
+            a.setStilling(nyStilling);
+
+            em.getTransaction().commit();
+        } catch (Throwable e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
 
     public List<Ansatt> finnAlleAnsatte() {
 
