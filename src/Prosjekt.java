@@ -9,8 +9,8 @@ public class Prosjekt {
     private String navn;
     private String beskrivelse;
 
-    @ManyToOne
-    @JoinColumn(name = "ansatte", referencedColumnName = "ansattID")
-    private Ansatt ansatt;
+    //@ManyToOne
+    //@JoinColumn(name = "ansatte", referencedColumnName = "ansattID")
+    //private Ansatt ansatt;
 
 }

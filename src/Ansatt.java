@@ -1,5 +1,6 @@
 import javax.persistence.*;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -12,19 +13,31 @@ public class Ansatt {
     private String brukernavn;
     private String fornavn;
     private String etternavn;
-    private String ansettelsedato;
+    private LocalDate ansettelsedato;
     private String stilling;
     private int maanedslonn;
 
-    public Ansatt (String brukernavn, String fornavn, String etternavn, String ansettelsedato, String stilling
-                   ,int maanedslonn) {
+
+    @ManyToOne
+    @JoinColumn(name = "avdeling", referencedColumnName = "avdeling")
+    private Avdeling avdeling;
+
+    public Ansatt (String brukernavn, String fornavn, String etternavn, LocalDate ansettelsedato, String stilling
+                   ,int maanedslonn, Avdeling avdeling) {
         this.brukernavn = brukernavn;
         this.fornavn = fornavn;
         this.etternavn = etternavn;
         this.ansettelsedato = ansettelsedato;
         this.stilling = stilling;
         this.maanedslonn = maanedslonn;
+        this.avdeling = avdeling;
     }
+
+    public Ansatt() {
+
+    }
+
+
 
 
     public int getAnsattId() {
@@ -59,11 +72,11 @@ public class Ansatt {
         this.etternavn = etternavn;
     }
 
-    public String getAnsettelsedato() {
+    public LocalDate getAnsettelsedato() {
         return ansettelsedato;
     }
 
-    public void setAnsettelsedato(String ansettelsedato) {
+    public void setAnsettelsedato(LocalDate ansettelsedato) {
         this.ansettelsedato = ansettelsedato;
     }
 
@@ -86,7 +99,7 @@ public class Ansatt {
     @Override
     public String toString() {
         return String.format("Ansatt: brukernavn=%s, fornavn=%s, etternavn=%s, ansettelsedato=%tF, stilling=%s," +
-                "maanedslonn=%d", brukernavn, fornavn, etternavn, ansettelsedato, stilling, maanedslonn);
+                "maanedslonn=%d" + "\n", brukernavn, fornavn, etternavn, ansettelsedato, stilling, maanedslonn);
     }
 
 

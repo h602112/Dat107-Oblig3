@@ -8,8 +8,17 @@ public class Avdeling {
     private int avdeling;
     private String navn;
 
-    @ManyToOne
-    @JoinColumn(name = "sjef", referencedColumnName = "ansattID")
-    private Ansatt ansatt;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "sjef", referencedColumnName = "ansattId")
+    private Ansatt sjef;
+
+    @Override
+    public String toString() {
+        return "Avdeling{" +
+                "avdeling=" + avdeling +
+                ", navn='" + navn + '\'' +
+                ", sjef=" + sjef +
+                '}';
+    }
 }
