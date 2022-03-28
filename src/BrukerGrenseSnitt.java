@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Scanner;
+import java.util.SortedMap;
 
 public class BrukerGrenseSnitt {
     public void start() throws ParseException {
@@ -15,7 +16,9 @@ public class BrukerGrenseSnitt {
         System.out.println("3. liste ut alle ansatte");
         System.out.println("4. oppdatere en ansatt sin lønn eller stilling");
         System.out.println("5. legge inn en ny ansatt");
-        System.out.println("6. ingen av delene");
+        System.out.println("6. legge inn en ny avdeling");
+        System.out.println("7. oppdatere hvilken avdeling en ansatte jobber på");
+        System.out.println("8. ingen av delene");
         String userChoice = scanner.nextLine();
         switch (userChoice) {
             case "1": {
@@ -85,7 +88,14 @@ public class BrukerGrenseSnitt {
                 ansattDAO.createAnsatt(a);
                 break;
             }
-            case "6":
+            case "6": {
+                System.out.println("Vennligst oppgi informasjon angående avdelingen du vil sette inn");
+                System.out.println("navn: ");
+                String avdelingNavn = scanner.next();
+                System.out.println("AnsattId til sjef: ");
+                int sjefId = scanner.nextInt();
+            }
+            case "8":
                 break;
             default:
                 System.out.println("Ugyldig");
