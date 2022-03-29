@@ -83,8 +83,6 @@ public class BrukerGrenseSnitt {
                 int avdelingId = scanner.nextInt();
                 AvdelingDAO avdelingDAO = new AvdelingDAO();
                 Avdeling avdeling = avdelingDAO.finnAvdelingMedId(avdelingId);
-
-
                 Ansatt a = new Ansatt(brukerNavn, forNavn, etterNavn, localDate, stilling, maanedslonn, avdeling);
                 AnsattDAO ansattDAO = new AnsattDAO();
                 ansattDAO.createAnsatt(a);
