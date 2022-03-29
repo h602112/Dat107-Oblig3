@@ -18,9 +18,16 @@ public class Ansatt {
     private int maanedslonn;
 
 
+    public void setAvdeling(Avdeling avdeling) {
+        this.avdeling = avdeling;
+    }
+
     @ManyToOne
     @JoinColumn(name = "avdeling", referencedColumnName = "avdeling")
     private Avdeling avdeling;
+
+    //@OneToMany(mappedBy="ansatt")
+    //private List<ProsjektDeltagelse> deltagelser;
 
     public Ansatt (String brukernavn, String fornavn, String etternavn, LocalDate ansettelsedato, String stilling
                    ,int maanedslonn, Avdeling avdeling) {
@@ -31,11 +38,17 @@ public class Ansatt {
         this.stilling = stilling;
         this.maanedslonn = maanedslonn;
         this.avdeling = avdeling;
+
     }
 
     public Ansatt() {
 
     }
+
+
+    //public void leggTilProsjektdeltagelse(ProsjektDeltagelse prosjektdeltagelse) {
+    //    deltagelser.add(prosjektdeltagelse);
+    //}
 
 
 
@@ -103,4 +116,6 @@ public class Ansatt {
     }
 
 
+    public void leggTilProsjektdeltagelse(ProsjektDeltagelse prosjektDeltagelse) {
+    }
 }

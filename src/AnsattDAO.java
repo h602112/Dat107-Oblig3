@@ -101,6 +101,25 @@ public class AnsattDAO {
         }
     }
 
+    public void updateAnsattAvdeling(int id, int avdelingId) {
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            em.getTransaction().begin();
+
+            Ansatt metodeAnsatt = em.find(Ansatt.class, id);
+            Avdeling metodeAvdeling = em.find(Avdeling.class, id);
+            metodeAnsatt.setAvdeling(metodeAvdeling);
+
+            em.getTransaction().commit();
+        } catch (Throwable e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+    }
+
     public List<Ansatt> finnAlleAnsatte() {
 
         EntityManager em = emf.createEntityManager();

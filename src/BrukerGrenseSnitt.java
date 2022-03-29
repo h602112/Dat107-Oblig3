@@ -18,7 +18,8 @@ public class BrukerGrenseSnitt {
         System.out.println("5. legge inn en ny ansatt");
         System.out.println("6. legge inn en ny avdeling");
         System.out.println("7. oppdatere hvilken avdeling en ansatte jobber på");
-        System.out.println("8. ingen av delene");
+        System.out.println("8. legge inn et nytt prosjekt");
+        System.out.println("9. ingen av delene");
         String userChoice = scanner.nextLine();
         switch (userChoice) {
             case "1": {
@@ -83,6 +84,7 @@ public class BrukerGrenseSnitt {
                 AvdelingDAO avdelingDAO = new AvdelingDAO();
                 Avdeling avdeling = avdelingDAO.finnAvdelingMedId(avdelingId);
 
+
                 Ansatt a = new Ansatt(brukerNavn, forNavn, etterNavn, localDate, stilling, maanedslonn, avdeling);
                 AnsattDAO ansattDAO = new AnsattDAO();
                 ansattDAO.createAnsatt(a);
@@ -94,8 +96,34 @@ public class BrukerGrenseSnitt {
                 String avdelingNavn = scanner.next();
                 System.out.println("AnsattId til sjef: ");
                 int sjefId = scanner.nextInt();
+                AnsattDAO ansattDAO = new AnsattDAO();
+                Ansatt sjef =ansattDAO.finnAnsattMedId(sjefId);
+                Avdeling a = new Avdeling(avdelingNavn, sjef);
+                AvdelingDAO avdelingDAO = new AvdelingDAO();
+                avdelingDAO.createAvdeling(a);
+                break;
             }
-            case "8":
+
+            case "7": {
+                System.out.println("Id til ansatt som du vil endre på: ");
+                int ansattId = scanner.nextInt();
+                System.out.println("Id til avdeling");
+                int avdelingId = scanner.nextInt();
+                AnsattDAO ansattDAO = new AnsattDAO();
+                ansattDAO.updateAnsattAvdeling(ansattId, avdelingId);
+                break;
+            }
+            case "8": {
+                System.out.println("Vennligst oppgi informasjon angående prosjektet du skal legge til: ");
+                System.out.println("navn: ");
+                String prosjektNavn = scanner.next();
+                System.out.println("beskrivelse: ");
+                String prosjektBeskrivelse = scanner.next();
+                Prosjekt p = new Prosjekt(prosjektNavn, prosjektBeskrivelse);
+                ProsjektDAO prosjektDAO = new ProsjektDAO();
+                prosjektDAO.createProsjekt(p);
+            }
+            case "9":
                 break;
             default:
                 System.out.println("Ugyldig");

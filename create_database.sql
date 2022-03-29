@@ -35,11 +35,25 @@ create table avdeling
 create table prosjekt
 (
     prosjektID serial,
-    navn varchar(255) not null,
-    beskrivelse varchar(255) not null,
-    ansatte integer not null,
-    constraint prosjektPK primary key (prosjektID),
-    constraint ansattFK foreign key (ansatte)
-            references ansatt(ansattID)
-
+    navn varchar(30),
+    beskrivelse varchar(255),
+    constraint prosjektPK primary key (prosjektID)
 );
+
+create table prosjektDeltagelse
+(
+    prosjektdeltagelseId serial,
+    ansatt_id integer,
+    prosjekt_id integer,
+    timer integer,
+    constraint prosjekDeltagelse_PK primary key (prosjektdeltagelseId),
+    constraint ansattProsjekt_unik unique not null (ansatt_id, prosjekt_id),
+    constraint ansatt_FK foreign key (ansatt_id) references ansatt(ansattID),
+    constraint prosjekt_FK foreign key (prosjekt_id) references prosjekt(prosjektID)
+);
+INSERT INTO
+    Prosjekt(navn, beskrivelse)
+VALUES
+    ('Trivselsprosjektet', 'Prosjekt angående trivelse til ansatte og flere'),
+    ('Synergiprosjektet', 'Prosjekt om synergi i jobb miljøet'),
+    ('Utviklingsprosjektet', 'Prosjekt angående utvikling av prossesser og verktøy');

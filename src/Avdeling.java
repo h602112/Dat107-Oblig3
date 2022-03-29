@@ -13,6 +13,16 @@ public class Avdeling {
     @JoinColumn(name = "sjef", referencedColumnName = "ansattId")
     private Ansatt sjef;
 
+    public Avdeling(String navn, Ansatt sjef) {
+
+        this.navn = navn;
+        this.sjef = sjef;
+    }
+
+    public Avdeling() {
+
+    }
+
     @Override
     public String toString() {
         return "Avdeling{" +
